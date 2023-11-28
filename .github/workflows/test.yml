@@ -21,7 +21,6 @@ jobs:
     needs: [first_job]
     steps:
       - name: Send success notification
-        id: slack
         if: ${{ always() && !contains(needs.*.result, 'failure') }}
         uses: slackapi/slack-github-action@v1.24.0
         with:
@@ -43,7 +42,6 @@ jobs:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
           SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
       - name: Send fail notification
-        id: slack
         if: ${{ always() && contains(needs.*.result, 'failure') }}
         uses: slackapi/slack-github-action@v1.24.0
         with:
