@@ -14,7 +14,7 @@ jobs:
   send_slack_failure_message:
     runs-on: ubuntu-latest
     needs: [first_job]
-    if: {{ always() }}
+    if: ${{ always() }}
     steps:
       - name: Send success notification
         if: ${{ contains(needs.*.result, 'success') }}
