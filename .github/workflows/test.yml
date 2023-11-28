@@ -11,12 +11,13 @@ jobs:
         run: |
           exit 1
 
-  send_slack_message:
+  send_slack_failure_message:
     runs-on: ubuntu-latest
     needs: [first_job]
+    if: {{ always() }}
     steps:
       - name: Send success notification
-        if: ${{ always() && !contains(needs.*.result, 'failure') }}
+        if: ${{ contains(needs.*.result, 'success') }}
         uses: slackapi/slack-github-action@v1.24.0
         with:
           # For posting a rich message using Block Kit
@@ -37,7 +38,7 @@ jobs:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
           SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
       - name: Send fail notification
-        if: ${{ always() && contains(needs.*.result, 'failure') }}
+        if: ${{ contains(needs.*.result, 'failure') }}
         uses: slackapi/slack-github-action@v1.24.0
         with:
           # For posting a rich message using Block Kit
