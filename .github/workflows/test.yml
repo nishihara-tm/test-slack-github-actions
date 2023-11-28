@@ -7,7 +7,9 @@ jobs:
   first_job:
     runs-on: ubuntu-latest
     steps:
-      - exit 1
+      - name: exit1
+        run: |
+          exit 1
 
   send_slack_message:
     runs-on: ubuntu-latest
