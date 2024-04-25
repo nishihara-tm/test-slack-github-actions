@@ -24,7 +24,7 @@ jobs:
       - name: after_failed
         if: ${{ contains(needs.first_job.result, 'failed') }}
         run: |
-          echo "failed"
+          echo "${{needs.first_job.result}} is the result"
       # - name: Send success notification
       #   if: ${{ contains(needs.*.result, 'success') }}
       #   uses: slackapi/slack-github-action@v1.24.0
