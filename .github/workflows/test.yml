@@ -9,17 +9,16 @@ jobs:
     steps:
       - name: exit1
         run: |
-          exit 1
+          exit 0
 
   send_slack_failure_message:
     runs-on: ubuntu-latest
-    needs: [first_job]
+    needs: first_job
     if: ${{ always() }}
     steps:
-      # - name: after_success
-      #   if: ${{ contains(needs.first_job.result, 'success') }}
-      #   run: |
-      #     echo "success"
+      - name: after_success
+        run: |
+          echo "${{ needs.first_job.result }}"
 
       # - name: after_failed
       #   if: ${{ contains(needs.first_job.result, 'failed') }}
