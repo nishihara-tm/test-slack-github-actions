@@ -9,7 +9,7 @@ jobs:
     steps:
       - name: exit1
         run: |
-          exit 0
+          exit 1
 
   send_slack_failure_message:
     runs-on: ubuntu-latest
