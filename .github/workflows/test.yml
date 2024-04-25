@@ -16,15 +16,15 @@ jobs:
     needs: [first_job]
     if: ${{ always() }}
     steps:
-      - name: after_success
-        if: ${{ contains(needs.first_job.result, 'success') }}
-        run: |
-          echo "success"
+      # - name: after_success
+      #   if: ${{ contains(needs.first_job.result, 'success') }}
+      #   run: |
+      #     echo "success"
 
-      - name: after_failed
-        if: ${{ contains(needs.first_job.result, 'failed') }}
-        run: |
-          echo "${{needs.first_job.result}} is the result"
+      # - name: after_failed
+      #   if: ${{ contains(needs.first_job.result, 'failed') }}
+      #   run: |
+      #     echo "${{needs.first_job.result}} is the result"
       # - name: Send success notification
       #   if: ${{ contains(needs.*.result, 'success') }}
       #   uses: slackapi/slack-github-action@v1.24.0
@@ -53,7 +53,7 @@ jobs:
           # For posting a rich message using Block Kit
           payload: |
             {
-              "text": "GitHub Action build result: failed\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}",
+              "text": "GitHub Action build result: ${{ needs.*.result }} \n${{ github.event.pull_request.html_url || github.event.head_commit.url }}",
               "blocks": [
                 {
                   "type": "section",
