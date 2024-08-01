@@ -23,11 +23,13 @@ jobs:
       - uses: actions/upload-pages-artifact@v3
         with:
           path: coverage
+          name: coverage
   deploy:
     needs: build
     runs-on: ubuntu-latest
     environment:
-      name: github-pages
+      # name: github-pages
+      name: coverage
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/deploy-pages@v4
