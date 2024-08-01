@@ -9,6 +9,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Pages
+        id: pages
+        uses: actions/configure-pages@v3
       - run:  mkdir coverage && echo "<h1>Deploying coverage report</h1>"  > coverage/index.html
       - uses: actions/upload-artifact@v4
         with:
