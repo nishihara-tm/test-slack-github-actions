@@ -13,6 +13,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           path: coverage
+          name: github-pages
   deploy:
     needs: build
     runs-on: ubuntu-latest
