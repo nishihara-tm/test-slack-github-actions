@@ -20,7 +20,7 @@ jobs:
         id: pages
         uses: actions/configure-pages@v3
       - run:  mkdir coverage && echo "<h1>Deploying coverage report</h1>"  > coverage/index.html
-      - uses: actions/upload-pages-artifact@v4
+      - uses: actions/upload-pages-artifact@v3
         with:
           path: coverage
   deploy:
