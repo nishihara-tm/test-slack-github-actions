@@ -1,69 +1,69 @@
-on:
-  push:
-    branches:
-      - main
-
-jobs:
-  first_job:
-    runs-on: ubuntu-latest
-    steps:
-      - name: exit1
-        run: |
-          exit 1
-
-  send_slack_failure_message:
-    runs-on: ubuntu-latest
-    needs: first_job
-    if: ${{ always() }}
-    steps:
-      - name: after_success
-        run: |
-          echo "${{ needs.first_job.result }}"
-
-      # - name: after_failed
-      #   if: ${{ contains(needs.first_job.result, 'failed') }}
-      #   run: |
-      #     echo "${{needs.first_job.result}} is the result"
-      # - name: Send success notification
-      #   if: ${{ contains(needs.*.result, 'success') }}
-      #   uses: slackapi/slack-github-action@v1.24.0
-      #   with:
-      #     # For posting a rich message using Block Kit
-      #     payload: |
-      #       {
-      #         "text": "GitHub Action build result: Success\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}",
-      #         "blocks": [
-      #           {
-      #             "type": "section",
-      #             "text": {
-      #               "type": "mrkdwn",
-      #               "text": "GitHub Action build result: Suceess \n${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
-      #             }
-      #           }
-      #         ]
-      #       }
-      #   env:
-      #     SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-      #     SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
-      - name: Send fail notification
-        if: ${{ contains(needs.*.result, 'failure') }}
-        uses: slackapi/slack-github-action@v1.24.0
-        with:
-          # For posting a rich message using Block Kit
-          channel-id: '#aaaaaa'
-          payload: |
-            {
-              "text": "GitHub Action build result: ${{ needs.*.result }} no---- \n${{ github.event.pull_request.html_url || github.event.head_commit.url }}",
-              "blocks": [
-                {
-                  "type": "section",
-                  "text": {
-                    "type": "mrkdwn",
-                    "text": "GitHub Action build result: ${{needs.first_job.result }} nonono \n${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
-                  }
-                }
-              ]
-            }
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+# on:
+#   push:
+#     branches:
+#       - main
+# 
+# jobs:
+#   first_job:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: exit1
+#         run: |
+#           exit 1
+# 
+#   send_slack_failure_message:
+#     runs-on: ubuntu-latest
+#     needs: first_job
+#     if: ${{ always() }}
+#     steps:
+#       - name: after_success
+#         run: |
+#           echo "${{ needs.first_job.result }}"
+# 
+#       # - name: after_failed
+#       #   if: ${{ contains(needs.first_job.result, 'failed') }}
+#       #   run: |
+#       #     echo "${{needs.first_job.result}} is the result"
+#       # - name: Send success notification
+#       #   if: ${{ contains(needs.*.result, 'success') }}
+#       #   uses: slackapi/slack-github-action@v1.24.0
+#       #   with:
+#       #     # For posting a rich message using Block Kit
+#       #     payload: |
+#       #       {
+#       #         "text": "GitHub Action build result: Success\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}",
+#       #         "blocks": [
+#       #           {
+#       #             "type": "section",
+#       #             "text": {
+#       #               "type": "mrkdwn",
+#       #               "text": "GitHub Action build result: Suceess \n${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
+#       #             }
+#       #           }
+#       #         ]
+#       #       }
+#       #   env:
+#       #     SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+#       #     SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+#       - name: Send fail notification
+#         if: ${{ contains(needs.*.result, 'failure') }}
+#         uses: slackapi/slack-github-action@v1.24.0
+#         with:
+#           # For posting a rich message using Block Kit
+#           channel-id: '#aaaaaa'
+#           payload: |
+#             {
+#               "text": "GitHub Action build result: ${{ needs.*.result }} no---- \n${{ github.event.pull_request.html_url || github.event.head_commit.url }}",
+#               "blocks": [
+#                 {
+#                   "type": "section",
+#                   "text": {
+#                     "type": "mrkdwn",
+#                     "text": "GitHub Action build result: ${{needs.first_job.result }} nonono \n${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
+#                   }
+#                 }
+#               ]
+#             }
+#         env:
+#           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+#           SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
